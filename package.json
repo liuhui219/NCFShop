@@ -1,0 +1,50 @@
+{
+  "name": "NCFShop",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "configureJPush": "node node_modules/jpush-react-native/JPushConfiguration.js",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@remobile/react-native-toast": "^1.0.7",
+    "antd-mobile": "^2.0.3",
+    "array-tree-filter": "^1.0.1",
+    "aurora-imui-react-native": "^0.7.1",
+    "jcore-react-native": "^1.2.5",
+    "jmessage-react-plugin": "^2.2.2",
+    "jpush-react-native": "^2.1.10",
+    "moment": "^2.19.4",
+    "react": "16.0.0-alpha.12",
+    "react-native": "0.46.0",
+    "react-native-banner-carousel": "^1.0.2",
+    "react-native-deprecated-custom-components": "^0.1.1",
+    "react-native-device-info": "^0.13.0",
+    "react-native-http-cache": "^0.2.0",
+    "react-native-image-crop-picker": "^0.19.1",
+    "react-native-image-picker": "^0.26.7",
+    "react-native-image-zoom-viewer": "^2.0.12",
+    "react-native-imui": "^1.0.7",
+    "react-native-orientation": "^3.1.0",
+    "react-native-picker": "^4.3.0",
+    "react-native-render-html": "^3.5.2",
+    "react-native-scrollable-tab-view": "^0.8.0",
+    "react-native-splash-screen": "^1.0.9",
+    "react-native-storage": "^0.2.2",
+    "react-native-svg": "^6.0.1-rc.3",
+    "react-native-swiper": "^1.5.13",
+    "react-native-syan-image-picker": "0.0.8",
+    "react-native-tab-navigator": "^0.3.4",
+    "react-native-vector-icons": "^4.4.2"
+  },
+  "devDependencies": {
+    "babel-jest": "21.2.0",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "21.2.1",
+    "react-test-renderer": "16.0.0-alpha.12"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
