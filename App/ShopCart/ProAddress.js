@@ -80,7 +80,7 @@ export default class MyComponent extends Component {
 
   getData(){
     var that = this;
-    fetch('http://139.199.76.191:8889/user/address/list', {
+    fetch('https://yzx.shixiweiyuan.com/user/address/list', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -162,7 +162,7 @@ export default class MyComponent extends Component {
     this.setState({
       status:false
     })
-    fetch('http://139.199.76.191:8889/user/address/delete', {
+    fetch('https://yzx.shixiweiyuan.com/user/address/delete', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -204,7 +204,7 @@ export default class MyComponent extends Component {
 
   SetDefault(info){
     var that = this;
-    fetch('http://139.199.76.191:8889/user/address/update', {
+    fetch('https://yzx.shixiweiyuan.com/user/address/update', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

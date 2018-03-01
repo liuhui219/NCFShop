@@ -33,8 +33,11 @@ import moment from 'moment';
 import Toast from '@remobile/react-native-toast';
 import Login from '../../Login/Login';
 import DeviceInfo from 'react-native-device-info';
+import JMessage from 'jmessage-react-plugin';
+import JPushModule from 'jpush-react-native';
 import photos from './photos';
 import Chat from '../../Chat/chat';
+import AppMain from '../../main';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -106,6 +109,18 @@ export default class MyComponent extends Component {
   }
 
   componentDidMount(){
+    JMessage.addLoginStateChangedListener((event)=>{
+      console.log(event)
+      if(event.type == "user_kicked"){
+        const { navigator } = this.props;
+        if(navigator) {
+            navigator.resetTo({
+              component: AppMain,
+              name: 'AppMain'
+            });
+        }
+      }
+    })
     AppState.addEventListener('change', this._handleAppStateChange.bind(this));
 
     this.getTime = setTimeout(() => {
@@ -127,7 +142,7 @@ export default class MyComponent extends Component {
 	  }
   getData(){
     var that = this;
-    fetch('http://139.199.76.191:8889/order/show', {
+    fetch('https://yzx.shixiweiyuan.com/order/show', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -157,7 +172,7 @@ export default class MyComponent extends Component {
           if(result.result.order.status == 2){
             var start = result.result.serverTime;
             var end = moment(moment(moment(result.result.order.confirmTime).add(3, 'h')).format("YYYY-MM-DD HH:mm:ss")).valueOf();
-            var urls = 'http://139.199.76.191:8889/file/downPrivateImg?token='+ data.result + '&key='+result.result.order.resourceKey;
+            var urls = 'https://yzx.shixiweiyuan.com/file/downPrivateImg?token='+ data.result + '&key='+result.result.order.resourceKey;
             if(result.result.order.hasOwnProperty('confirmTime')){
               that.djtime = setInterval(()=>{
                 start = Number(start) + Number(1000);
@@ -221,7 +236,7 @@ export default class MyComponent extends Component {
             var keysArr = [];
             IMG=[];
             result.result.order.resourceKey.split(",").forEach((imgs,i)=>{
-              var urls = 'http://139.199.76.191:8889/file/downPrivateImg?token='+ data.result + '&key='+imgs;
+              var urls = 'https://yzx.shixiweiyuan.com/file/downPrivateImg?token='+ data.result + '&key='+imgs;
               var imgS = {uri:urls};
               var obj = {url:urls};
               keysArr.push(imgS);
@@ -406,7 +421,7 @@ export default class MyComponent extends Component {
       status:false,
       loades:true,
     })
-    fetch('http://139.199.76.191:8889/order/doneOrder', {
+    fetch('https://yzx.shixiweiyuan.com/order/doneOrder', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -456,7 +471,7 @@ export default class MyComponent extends Component {
   Chat(){
     var that = this;
     this.setState({loades:true,})
-    fetch('http://139.199.76.191:8889/im/getBusinessIM', {
+    fetch('https://yzx.shixiweiyuan.com/im/getBusinessIM', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -482,6 +497,7 @@ export default class MyComponent extends Component {
                    component: Chat,
                    params:{
                      name:result.result.username,
+                     phone:that.state.businessInfo.businessPhone,
                      username:result.result.nickname
                    }
                })

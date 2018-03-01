@@ -268,7 +268,7 @@ export default class MyComponent extends Component {
       Toast.showShortCenter('新密码长度至少六位数')
       return false;
     }else{
-      fetch('http://139.199.76.191:8889/user/updatePassword', {
+      fetch('https://yzx.shixiweiyuan.com/user/updatePassword', {
           method: 'POST',
           headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

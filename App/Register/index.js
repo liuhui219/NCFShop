@@ -61,7 +61,7 @@ export default class MyComponent extends Component {
     }
    componentDidMount() {
      JMessage.init({
-       appkey: "fdbbb12e83955a2ae9a51dbb",
+       appkey: "0a86dd7a0756f0bafd2b7247",
        isOpenMessageRoaming: false,
        isProduction: true,
      })
@@ -268,7 +268,7 @@ export default class MyComponent extends Component {
     GetCode(){
       this.refs.text.blur();
       var that = this;
-      fetch('http://139.199.76.191:8889/user/getLoginCode', {
+      fetch('https://yzx.shixiweiyuan.com/user/getLoginCode', {
           method: 'POST',
           headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -481,7 +481,7 @@ export default class MyComponent extends Component {
           register:'注册中...',
           Islogins:true,
         });
-        fetch('http://139.199.76.191:8889/user/register', {
+        fetch('https://yzx.shixiweiyuan.com/user/register', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -549,7 +549,7 @@ export default class MyComponent extends Component {
 
     getIm(token){
        var that = this;
-       fetch('http://139.199.76.191:8889/im/getImKey', {
+       fetch('https://yzx.shixiweiyuan.com/im/getImKey', {
            method: 'POST',
            headers: {
            'Content-Type': 'application/x-www-form-urlencoded',
@@ -577,8 +577,7 @@ export default class MyComponent extends Component {
                JMessage.login({
                  username: result.result,
                  password: "123456789"
-               },(success) => {
-                  DeviceEventEmitter.emit('IsChat','false');
+               },(success) => { 
                }, (error) => {
 
                })
@@ -595,7 +594,7 @@ export default class MyComponent extends Component {
      }
 
      registerIM(token,that){
-       fetch('http://139.199.76.191:8889/im/registerIM', {
+       fetch('https://yzx.shixiweiyuan.com/im/registerIM', {
            method: 'POST',
            headers: {
            'Content-Type': 'application/x-www-form-urlencoded',
@@ -624,7 +623,6 @@ export default class MyComponent extends Component {
                  password: "123456789"
                },(success) => {
                  console.log(success)
-                 DeviceEventEmitter.emit('IsChat','false');
                }, (error) => {
 
                })

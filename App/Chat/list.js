@@ -83,7 +83,7 @@ export default class MyComponent extends Component {
   getData(){
     var that = this;
 
-    fetch('http://139.199.76.191:8889/im/contactList', {
+    fetch('https://yzx.shixiweiyuan.com/im/contactList', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -149,6 +149,7 @@ export default class MyComponent extends Component {
              component: Chat,
              params:{
                name:info.username,
+               phone:info.phoneNumber,
                username:info.nickname
              }
          })

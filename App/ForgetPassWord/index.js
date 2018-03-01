@@ -250,7 +250,7 @@ export default class Forget extends Component {
         IsOnpress:false,
         getTime:'获取中'
       })
-      fetch('http://139.199.76.191:8889/user/getForgetCode', {
+      fetch('https://yzx.shixiweiyuan.com/user/getForgetCode', {
           method: 'POST',
           headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -467,7 +467,7 @@ export default class Forget extends Component {
           register:'提交中',
           Islogins:true,
         })
-        fetch('http://139.199.76.191:8889/user/forgetPwd', {
+        fetch('https://yzx.shixiweiyuan.com/user/forgetPwd', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

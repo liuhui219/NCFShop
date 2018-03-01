@@ -1,6 +1,7 @@
 package com.ncfshop;
 
 import com.facebook.react.ReactActivity;
+import com.RNFetchBlob.RNFetchBlobPackage;
 import com.horcrux.svg.SvgPackage;
 import io.jchat.android.JMessageReactPackage;
 import cn.jiguang.imui.chatinput.ReactIMUIPackage;

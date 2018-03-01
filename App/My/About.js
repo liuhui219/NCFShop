@@ -60,7 +60,7 @@ export default class MyComponent extends Component {
   getData(){
     var that = this;
 
-    fetch('http://139.199.76.191:8889/app/getAppDoc?type=4')
+    fetch('https://yzx.shixiweiyuan.com/app/getAppDoc?type=4')
      .then((response) => response.json())
      .then((responseData) => {
           if(responseData.code == 0){

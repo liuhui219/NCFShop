@@ -17,6 +17,7 @@ import {
   Clipboard,
   KeyboardAvoidingView,
   ToastAndroid,
+  Linking,
   InteractionManager,
   ActivityIndicator,
   ScrollView,
@@ -90,7 +91,24 @@ export default class Chat extends React.Component {
   }
 
     componentWillMount() {
-
+       JMessage.addLoginStateChangedListener((event)=>{
+        console.log(event)
+        if(event.type == "user_kicked"){
+          storage.clearMap();
+          storage.remove({
+            key: 'loginState'
+          });
+          global.data='';
+          DeviceEventEmitter.emit('IsLoginout','true');
+          const { navigator } = this.props;
+          if(navigator) {
+              //很熟悉吧，入栈出栈~ 把当前的页面pop掉，这里就返回到了上一个页面了
+              navigator.pop();
+              return true;
+          }
+          return false;
+        }
+      })
     }
     _onNavigatorEvent(event){
 
@@ -191,7 +209,7 @@ export default class Chat extends React.Component {
       var that = this;
       arrMsg = [];
       JMessage.getHistoryMessages({ type: 'single', username: that.props.name,
-       appKey: 'fdbbb12e83955a2ae9a51dbb', from: 0, limit: 10 },
+       appKey: '0a86dd7a0756f0bafd2b7247', from: 0, limit: 10 },
        (msgArr) => {
           console.log(msgArr)
           msgArr.map((info,i)=>{
@@ -397,7 +415,7 @@ export default class Chat extends React.Component {
            return;
        }
        text = text.trim();
-       var message = {type: 'single', username: this.props.name, appKey: 'fdbbb12e83955a2ae9a51dbb', messageType: 'text',text:text}
+       var message = {type: 'single', username: this.props.name, appKey: '0a86dd7a0756f0bafd2b7247', messageType: 'text',text:text}
        JMessage.createSendMessage(message, (msg) => {
           console.log(msg)
           var datas = [];
@@ -422,7 +440,7 @@ export default class Chat extends React.Component {
           console.log(AuroraIController)
           AuroraIController.appendMessages(datas)
           AuroraIController.scrollToBottom(true)
-          JMessage.sendMessage({id:msg.id, type: 'single', username: that.props.name,appKey: 'fdbbb12e83955a2ae9a51dbb'}, (info) => {
+          JMessage.sendMessage({id:msg.id, type: 'single', username: that.props.name,appKey: '0a86dd7a0756f0bafd2b7247'}, (info) => {
 
             this.newList();
           }, (error) => {
@@ -434,7 +452,7 @@ export default class Chat extends React.Component {
     onSendRecordMessage = (path) =>{
           var data = [];
 
-          JMessage.sendVoiceMessage({ type: 'single', username: this.props.name, appKey:'fdbbb12e83955a2ae9a51dbb',
+          JMessage.sendVoiceMessage({ type: 'single', username: this.props.name, appKey:'0a86dd7a0756f0bafd2b7247',
             path: path, extras: {}},
             (info) => {
                 console.log(info)
@@ -550,7 +568,7 @@ export default class Chat extends React.Component {
     }
     handleImagePicker() {
         var that = this;
-        var message = {type: 'single', username: this.props.name, appKey: 'fdbbb12e83955a2ae9a51dbb', messageType: 'image',text:''}
+        var message = {type: 'single', username: this.props.name, appKey: '0a86dd7a0756f0bafd2b7247', messageType: 'image',text:''}
         ImagePicker.openPicker({
             mediaType:'photo',
             multiple: true
@@ -560,7 +578,7 @@ export default class Chat extends React.Component {
            var data = [];
            var datas = [];
 
-             JMessage.sendImageMessage({ type: 'single', username: that.props.name, appKey: 'fdbbb12e83955a2ae9a51dbb',
+             JMessage.sendImageMessage({ type: 'single', username: that.props.name, appKey: '0a86dd7a0756f0bafd2b7247',
                  path: img.path},
                  (info) => {
                    console.log(info)
@@ -606,7 +624,7 @@ export default class Chat extends React.Component {
     }
     handleCameraPicker() {
         var that = this;
-      var message = {type: 'single', username: this.props.name, appKey: 'fdbbb12e83955a2ae9a51dbb', messageType: 'image',text:''}
+      var message = {type: 'single', username: this.props.name, appKey: '0a86dd7a0756f0bafd2b7247', messageType: 'image',text:''}
       ImagePicker.openCamera({
            mediaType: 'photo',
            loadingLabelText: '请稍候...'
@@ -614,7 +632,7 @@ export default class Chat extends React.Component {
          var data = [];
 
 
-           JMessage.sendImageMessage({ type: 'single', username: that.props.name, appKey: 'fdbbb12e83955a2ae9a51dbb',
+           JMessage.sendImageMessage({ type: 'single', username: that.props.name, appKey: '0a86dd7a0756f0bafd2b7247',
                path: image.path},
                (info) => {
                  console.log(info)
@@ -695,7 +713,7 @@ export default class Chat extends React.Component {
       var that = this;
       var data = [];
       JMessage.getHistoryMessages({ type: 'single', username: that.props.name,
-       appKey: 'fdbbb12e83955a2ae9a51dbb', from: this.state.index, limit: 10 },
+       appKey: '0a86dd7a0756f0bafd2b7247', from: this.state.index, limit: 10 },
        (msgArr) => {
           console.log(msgArr)
           if(msgArr.length != 0){
@@ -860,7 +878,7 @@ export default class Chat extends React.Component {
           })
           AuroraIController.insertMessagesToTop(data.reverse());
         }else{
-          console.log(AuroraIController)
+          AuroraIController.insertMessagesToTop(data);
         }
        }, (error) => {
          var code = error.code
@@ -895,11 +913,24 @@ export default class Chat extends React.Component {
                           <Text allowFontScaling={false} adjustsFontSizeToFit={false} style={{color:'white',fontSize:18}}>{this.props.username}</Text>
                       </View>
                       <View style={{flex:1,justifyContent:'center',alignItems:'flex-end',}}>
+                          <TouchableOpacity
+                  onPress={()=>Linking.canOpenURL('tel:'+this.props.phone).then(supported => {
+                   if (supported) {
+                       Linking.openURL('tel:'+this.props.phone);
+                   } else {
 
+                   }
+                  })}
+                 style={{height:40,width:40,justifyContent:'center',alignItems:'center',marginRight:5}}>
+                    <View style={{height:30,width:30,justifyContent:'center',alignItems:'center',}}>
+                      <Ionicons name="ios-call" color="#fff" size={24}  />
+                    </View>
+                </TouchableOpacity>
                       </View>
                     </View>
                     <Netinfo  {...this.props}/>
                     <MessageListView style={[styles.messageList]}
+                                     ref="MessageList"
                                      initalData={this.state.initList}
                                      onAvatarClick={this.onAvatarPress}
                                      onMsgClick={this.onMsgClick}

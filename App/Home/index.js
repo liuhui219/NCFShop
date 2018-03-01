@@ -66,7 +66,7 @@ export default class Home extends Component {
    getData(){
      var imgs = [];
      var that = this;
-     fetch('http://139.199.76.191:8889/home/home')
+     fetch('https://yzx.shixiweiyuan.com/home/home')
 		  .then((response) => response.json())
 		  .then((responseData) => {
 

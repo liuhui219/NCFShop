@@ -66,7 +66,7 @@ export default class MyComponent extends Component {
 
   getData(){
     var that = this;
-    fetch('http://139.199.76.191:8889/app/article/showCategory', {
+    fetch('https://yzx.shixiweiyuan.com/app/article/showCategory', {
         method: 'get',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

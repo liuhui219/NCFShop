@@ -159,7 +159,7 @@ export default class MyComponent extends Component {
       return false;
     }else{
 
-      fetch('http://139.199.76.191:8889/user/address/add', {
+      fetch('https://yzx.shixiweiyuan.com/user/address/add', {
           method: 'POST',
           headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

@@ -23,8 +23,8 @@
   JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
   entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
   [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
-  [JPUSHService setupWithOption:launchOptions appKey:@"fdbbb12e83955a2ae9a51dbb"
-                        channel:nil apsForProduction:false];
+  
+  [JPUSHService setupWithOption:launchOptions appKey:@"0a86dd7a0756f0bafd2b7247" channel:nil apsForProduction:true];
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
   //jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation

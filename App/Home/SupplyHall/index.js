@@ -14,6 +14,7 @@ import {
   ScrollView,
   ListView,
   TouchableNativeFeedback,
+  KeyboardAvoidingView,
   DeviceEventEmitter,
   ActivityIndicator,
   Keyboard,
@@ -136,7 +137,7 @@ export default class Supply extends Component {
      var dataCategorys = [];
      array_color=[];
      array_color1=[];
-		 fetch('http://139.199.76.191:8889/product/categorys')
+		 fetch('https://yzx.shixiweiyuan.com/product/categorys')
 		  .then((response) => response.json())
 		  .then((responseData) => {
 					 console.log(responseData)
@@ -163,7 +164,7 @@ export default class Supply extends Component {
 
   getData(){
     var that = this;
-    fetch('http://139.199.76.191:8889/product/products', {
+    fetch('https://yzx.shixiweiyuan.com/product/products', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -314,8 +315,9 @@ export default class Supply extends Component {
     this.setState({
       loadedk:true
     })
+    Keyboard.dismiss();
     var that = this;
-    fetch('http://139.199.76.191:8889/product/search', {
+    fetch('https://yzx.shixiweiyuan.com/product/search', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -599,7 +601,7 @@ export default class Supply extends Component {
   pushPro(info){
 
     var that = this;
-    fetch('http://139.199.76.191:8889/shoppingCart/add', {
+    fetch('https://yzx.shixiweiyuan.com/shoppingCart/add', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -725,7 +727,7 @@ export default class Supply extends Component {
 			   isLoadMore:false,
 		  })
 		  var that=this
-      fetch('http://139.199.76.191:8889/product/products', {
+      fetch('https://yzx.shixiweiyuan.com/product/products', {
           method: 'POST',
           headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -823,7 +825,7 @@ export default class Supply extends Component {
   			  })
 
           var that=this
-          fetch('http://139.199.76.191:8889/product/products', {
+          fetch('https://yzx.shixiweiyuan.com/product/products', {
               method: 'POST',
               headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
@@ -1053,7 +1055,7 @@ export default class Supply extends Component {
   			  })
 
           var that=this
-          fetch('http://139.199.76.191:8889/product/search', {
+          fetch('https://yzx.shixiweiyuan.com/product/search', {
               method: 'POST',
               headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
@@ -1391,6 +1393,7 @@ export default class Supply extends Component {
             </View>
             <View style={{flex:1}}>
                 <ListView
+                  keyboardDismissMode={'on-drag'}
                   dataSource={this.state.dataSources}
                   renderRow={this.renderMovies.bind(this)}
                   onEndReached={this._onEndReachs.bind(this) }

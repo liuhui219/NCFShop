@@ -105,7 +105,7 @@ export default class MyComponent extends Component {
 	  }
   getData(){
     var that = this;
-    fetch('http://139.199.76.191:8889/order/show', {
+    fetch('https://yzx.shixiweiyuan.com/order/show', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -134,7 +134,7 @@ export default class MyComponent extends Component {
           console.log(moment(result.result.order.confirmTime).format("YYYY-MM-DD HH:mm:ss"));
           var start = result.result.serverTime;
           var end = moment(moment(moment(result.result.order.confirmTime).add(3, 'h')).format("YYYY-MM-DD HH:mm:ss")).valueOf();
-          var urls = 'http://139.199.76.191:8889/file/downPrivateImg?token='+ data.result + '&key='+result.result.order.resourceKey;
+          var urls = 'https://yzx.shixiweiyuan.com/file/downPrivateImg?token='+ data.result + '&key='+result.result.order.resourceKey;
           if(result.result.order.hasOwnProperty('confirmTime')){
             that.djtime = setInterval(()=>{
               start = Number(start) + Number(1000);

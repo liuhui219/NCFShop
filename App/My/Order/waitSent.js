@@ -94,7 +94,7 @@ export default class MyComponent extends Component {
   }
   getData(){
     var that = this;
-    fetch('http://139.199.76.191:8889/order/show', {
+    fetch('https://yzx.shixiweiyuan.com/order/show', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -110,7 +110,7 @@ export default class MyComponent extends Component {
       .then(function (result) {
         console.log(result)
        if(result.code == 0){
-          var urls = 'http://139.199.76.191:8889/file/downPrivateImg?token='+ data.result + '&key='+result.result.order.resourceKey;
+          var urls = 'https://yzx.shixiweiyuan.com/file/downPrivateImg?token='+ data.result + '&key='+result.result.order.resourceKey;
           that.setState({
             loaded:false,
             dataMain:result.result,
@@ -124,7 +124,7 @@ export default class MyComponent extends Component {
             var keysArr = [];
             IMG=[];
             result.result.order.resourceKey.split(",").forEach((imgs,i)=>{
-              var urls = 'http://139.199.76.191:8889/file/downPrivateImg?token='+ data.result + '&key='+imgs;
+              var urls = 'https://yzx.shixiweiyuan.com/file/downPrivateImg?token='+ data.result + '&key='+imgs;
               var imgS = {uri:urls};
               var obj = {url:urls};
               keysArr.push(imgS);

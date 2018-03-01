@@ -113,7 +113,7 @@ export default class MyComponent extends Component {
     this.setState({
       loaded:true,
     });
-    fetch('http://139.199.76.191:8889/order/closeOrder', {
+    fetch('https://yzx.shixiweiyuan.com/order/closeOrder', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

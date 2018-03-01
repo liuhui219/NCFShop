@@ -63,7 +63,7 @@ export default class NCFShop extends Component {
 
  	componentDidMount() {
     JMessage.init({
-      appkey: "fdbbb12e83955a2ae9a51dbb",
+      appkey: "0a86dd7a0756f0bafd2b7247",
       isOpenMessageRoaming: false,
       isProduction: true,
     })
@@ -88,7 +88,7 @@ export default class NCFShop extends Component {
       logins:'登录中...',
       Islogins:true
     })
-    fetch('http://139.199.76.191:8889/user/login', {
+    fetch('https://yzx.shixiweiyuan.com/user/login', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -148,7 +148,7 @@ export default class NCFShop extends Component {
 
      getIm(token){
         var that = this;
-        fetch('http://139.199.76.191:8889/im/getImKey', {
+        fetch('https://yzx.shixiweiyuan.com/im/getImKey', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -194,7 +194,7 @@ export default class NCFShop extends Component {
       }
 
       registerIM(token,that){
-        fetch('http://139.199.76.191:8889/im/registerIM', {
+        fetch('https://yzx.shixiweiyuan.com/im/registerIM', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

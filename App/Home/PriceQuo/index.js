@@ -123,7 +123,7 @@ export default class MyComponent extends Component {
 
   getData(time){
     var that = this;
-    fetch('http://139.199.76.191:8889/app/marketprice/show', {
+    fetch('https://yzx.shixiweiyuan.com/app/marketprice/show', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

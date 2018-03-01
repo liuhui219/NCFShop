@@ -133,6 +133,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-fetch-blob')
     compile project(':react-native-svg')
     compile project(':jmessage-react-plugin')
     compile project(':react-native-imui')

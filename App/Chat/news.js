@@ -48,7 +48,17 @@ export default class News extends Component {
   }
 
   componentDidMount(){
-
+    JMessage.addLoginStateChangedListener((event)=>{
+        console.log(event)
+        if(event.type == "user_kicked"){
+          storage.clearMap();
+          storage.remove({
+            key: 'loginState'
+          });
+          global.data='';
+          DeviceEventEmitter.emit('IsLoginout','true');
+        }
+      })
     JPushModule.addReceiveNotificationListener((map)=>{
       if(map.hasOwnProperty('orderNum')){
         this.setState({
@@ -166,9 +176,9 @@ export default class News extends Component {
 
   }
 
-  chat(name,username){
+  chat(name,username,phone){
     var that = this;
-    JMessage.resetUnreadMessageCount({ type: 'single', username: name, appKey: 'fdbbb12e83955a2ae9a51dbb' },
+    JMessage.resetUnreadMessageCount({ type: 'single', username: name, appKey: '0a86dd7a0756f0bafd2b7247' },
       (conversation) => {
         JMessage.getConversations((result) => {
           console.log(result)
@@ -204,6 +214,7 @@ export default class News extends Component {
               component: Chat,
               params:{
                 name:name,
+                phone:phone,
                 username:username,
                 getNews:function(){
                   that.componentWillMount();
@@ -248,7 +259,7 @@ export default class News extends Component {
     this.setState({
       status:false
     })
-    JMessage.deleteConversation({ type: 'single', username: this.state.name, appKey: 'fdbbb12e83955a2ae9a51dbb' },
+    JMessage.deleteConversation({ type: 'single', username: this.state.name, appKey: '0a86dd7a0756f0bafd2b7247' },
       (conversation) => {
         JMessage.getConversations((result) => {
           console.log(result)
@@ -293,7 +304,7 @@ export default class News extends Component {
           if(data.hasOwnProperty('latestMessage')){
             return (
               <View style={{borderBottomWidth:1,borderColor:'#eee',}}>
-                <TouchableHighlight underlayColor='#ccc' onPress={this.chat.bind(this,data.target.username,data.title)} onLongPress={this.delete.bind(this,data.target.username)}>
+                <TouchableHighlight underlayColor='#ccc' onPress={this.chat.bind(this,data.target.username,data.title,data.target.signature)} onLongPress={this.delete.bind(this,data.target.username)}>
                     <View style={[styles.row,styles.last]}>
                         <View style={{width:60,height:60,justifyContent:'center',alignItems:'center'}}>
                           {data.target.avatarThumbPath != '' ? <Image resizeMode={'contain'} style={{ width: 45,height:45}} source={{uri:'file://'+data.target.avatarThumbPath}} /> :

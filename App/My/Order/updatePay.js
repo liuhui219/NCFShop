@@ -145,7 +145,7 @@ export default class MyComponent extends Component {
         file = {uri:imgs.path, type: 'multipart/form-data', name: type};
         formData.append("file",file);
         formData.append("token",data.result);
-        fetch('http://139.199.76.191:8889/file/upLoadPrivateImg', {
+        fetch('https://yzx.shixiweiyuan.com/file/upLoadPrivateImg', {
             method: 'POST',
             headers: {
             'Content-Type':'multipart/form-data',
@@ -279,7 +279,7 @@ export default class MyComponent extends Component {
      that.setState({
        loaded:true
      })
-     fetch('http://139.199.76.191:8889/order/updateResourceKey', {
+     fetch('https://yzx.shixiweiyuan.com/order/updateResourceKey', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -322,7 +322,7 @@ export default class MyComponent extends Component {
       .catch((error) => {
         that.setState({
           loaded:false,
-        }) 
+        })
          Toast.showShortCenter('您的系统繁忙')
       });
 

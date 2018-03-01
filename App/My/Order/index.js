@@ -26,6 +26,8 @@ import Netinfo from '../../NetInfo';
 import Toast from '@remobile/react-native-toast';
 import DeviceInfo from 'react-native-device-info';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import JMessage from 'jmessage-react-plugin';
+import JPushModule from 'jpush-react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ScrollableTabView, { DefaultTabBar,  } from 'react-native-scrollable-tab-view';
 import List from './List';
@@ -53,6 +55,26 @@ export default class MyComponent extends Component {
           return true;
       }
       return false;
+  }
+
+  componentDidMount(){
+    JMessage.addLoginStateChangedListener((event)=>{
+      console.log(event)
+      if(event.type == "user_kicked"){
+        const { navigator } = this.props;
+        if(navigator) {
+            //很熟悉吧，入栈出栈~ 把当前的页面pop掉，这里就返回到了上一个页面了
+            navigator.pop();
+            return true;
+        }
+        return false;
+      }
+    })
+  }
+
+  componentWillUnmount() {
+    JMessage.removeMessageRetractListener()
+    this.getTime && clearTimeout(this.getTime);
   }
   render() {
     return (

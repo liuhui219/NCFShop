@@ -93,7 +93,7 @@ export default class MyComponent extends Component {
 
   getData(){
     var that = this;
-    fetch('http://139.199.76.191:8889/app/pushMsg/showList', {
+    fetch('https://yzx.shixiweiyuan.com/app/pushMsg/showList', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -296,7 +296,7 @@ export default class MyComponent extends Component {
         })
 
         var that=this
-        fetch('http://139.199.76.191:8889/app/pushMsg/showList', {
+        fetch('https://yzx.shixiweiyuan.com/app/pushMsg/showList', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

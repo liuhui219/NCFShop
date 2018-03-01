@@ -89,7 +89,7 @@ export default class MyComponent extends Component {
 
   getData(){
     var that = this;
-    fetch('http://139.199.76.191:8889/product/detail', {
+    fetch('https://yzx.shixiweiyuan.com/product/detail', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -194,7 +194,7 @@ export default class MyComponent extends Component {
     pushPro(){
 
       var that = this;
-      fetch('http://139.199.76.191:8889/shoppingCart/add', {
+      fetch('https://yzx.shixiweiyuan.com/shoppingCart/add', {
           method: 'POST',
           headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -236,7 +236,7 @@ export default class MyComponent extends Component {
   Chat(){
     var that = this;
     this.setState({loadeds:true,})
-    fetch('http://139.199.76.191:8889/im/getBusinessIM', {
+    fetch('https://yzx.shixiweiyuan.com/im/getBusinessIM', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -262,6 +262,7 @@ export default class MyComponent extends Component {
                    component: Chat,
                    params:{
                      name:result.result.username,
+                     phone:that.state.data.businessPhone,
                      username:result.result.nickname
                    }
                })
@@ -296,7 +297,7 @@ export default class MyComponent extends Component {
   buy(){
     var that = this;
     this.setState({loadeds:true,})
-    fetch('http://139.199.76.191:8889/shoppingCart/add', {
+    fetch('https://yzx.shixiweiyuan.com/shoppingCart/add', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -314,7 +315,7 @@ export default class MyComponent extends Component {
          console.log(result)
          if(result.code == 0){
           DeviceEventEmitter.emit('reloadShop','false');
-          fetch('http://139.199.76.191:8889/shoppingCart/list', {
+          fetch('https://yzx.shixiweiyuan.com/shoppingCart/list', {
               method: 'POST',
               headers: {
               'Content-Type': 'application/x-www-form-urlencoded',

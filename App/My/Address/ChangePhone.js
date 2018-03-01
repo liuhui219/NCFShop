@@ -251,7 +251,7 @@ export default class MyComponent extends Component {
 
   submit(){
     var that = this;
-    fetch('http://139.199.76.191:8889/user/updatePhone', {
+    fetch('https://yzx.shixiweiyuan.com/user/updatePhone', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -302,7 +302,7 @@ export default class MyComponent extends Component {
   GetCode(){
     this.refs.text.blur();
     var that = this;
-    fetch('http://139.199.76.191:8889/user/getLoginCode', {
+    fetch('https://yzx.shixiweiyuan.com/user/getLoginCode', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

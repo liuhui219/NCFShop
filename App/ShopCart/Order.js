@@ -156,7 +156,7 @@ export default class MyComponent extends Component {
 
   getAddressData(){
     var that = this;
-    fetch('http://139.199.76.191:8889/user/address/list', {
+    fetch('https://yzx.shixiweiyuan.com/user/address/list', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -334,7 +334,7 @@ export default class MyComponent extends Component {
         ticketType:this.state.ticketObj.ticketType,
         ticketTitleType:this.state.ticketObj.ticketTitleType
       }
-      fetch('http://139.199.76.191:8889/order/confirmOrder?token=' + data.result + '', {
+      fetch('https://yzx.shixiweiyuan.com/order/confirmOrder?token=' + data.result + '', {
           method: 'POST',
           headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

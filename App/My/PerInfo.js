@@ -71,9 +71,11 @@ export default class Setting extends Component {
       job:'',
       loaded:false,
       loadeds:true,
+      imguris:'',
       values:'',
       imguri:'',
       avatarSource:'',
+      companyLicenceUrl:'',
       fileImg:'',
       imagesshow:false,
       Islogins:false,
@@ -129,7 +131,7 @@ export default class Setting extends Component {
 
    getData(){
      var that = this;
-     fetch('http://139.199.76.191:8889/user/getUserInfo', {
+     fetch('https://yzx.shixiweiyuan.com/user/getUserInfo', {
          method: 'POST',
          headers: {
          'Content-Type': 'application/x-www-form-urlencoded',
@@ -143,7 +145,7 @@ export default class Setting extends Component {
        })
        .then(function (result) {
           console.log(result)
-          var urls = 'http://139.199.76.191:8889/file/downPrivateImg?token='+ data.result + '&key='+result.result.companyLicenceUrl;
+          var urls = 'https://yzx.shixiweiyuan.com/file/downPrivateImg?token='+ data.result + '&key='+result.result.companyLicenceUrl;
           if(result.code == 0){
              that.setState({
                imagesshow:false,
@@ -162,6 +164,8 @@ export default class Setting extends Component {
                that.setState({
                  avatarSource:{uri:urls},
                  imagesshow:true,
+                 imguris:urls,
+                 companyLicenceUrl:result.result.companyLicenceUrl,
                  loadeds:false,
                })
              }else{
@@ -303,6 +307,7 @@ export default class Setting extends Component {
   		       imguri:response.uri,
              avatarSource: source,
   		       fileImg:response,
+             imguris:'',
   		       imagesshow:true,
           });
         }
@@ -357,6 +362,7 @@ export default class Setting extends Component {
   		       imguri:response.uri,
              avatarSource: source,
   		       fileImg:response,
+             imguris:'',
   		       imagesshow:true,
           });
         }
@@ -405,11 +411,42 @@ export default class Setting extends Component {
 
         Toast.showShortCenter('您什么都没有填写')
         return false;
+      }else if(this.state.imguris != ''){
+        fetch('https://yzx.shixiweiyuan.com/user/updateCompanyInfo', {
+           method: 'POST',
+           headers: {
+           'Content-Type': 'application/x-www-form-urlencoded',
+           },
+           body: that.toQueryString({
+            'token':data.result,
+            'companyName':that.state.company,
+            'companyAddress':that.state.values + ' ' +that.state.addressInfo,
+            'companyPhone':that.state.phone,
+            'companyJob':that.state.job,
+            'companyLicenceUrl':this.state.companyLicenceUrl
+           })
+         })
+         .then(function (response) {
+           return response.json();
+         })
+         .then(function (results) {
+           console.log(results)
+           Toast.showShortCenter('提交成功')
+           that.setState({
+             loaded:false,
+           })
+         })
+         .catch((error) => {
+           that.setState({
+             loaded:false,
+           })
+           Toast.showShortCenter('您的系统繁忙')
+         });
       }else if(this.state.imguri != ''){
         that.setState({
           loaded:true,
         })
-        fetch('http://139.199.76.191:8889/file/upLoadPrivateImg', {
+        fetch('https://yzx.shixiweiyuan.com/file/upLoadPrivateImg', {
      			  method: 'POST',
      			  headers: {
      				'Content-Type':'multipart/form-data',
@@ -421,7 +458,7 @@ export default class Setting extends Component {
      			})
      			.then(function (result) {
             if(result.code == 0){
-               fetch('http://139.199.76.191:8889/user/updateCompanyInfo', {
+               fetch('https://yzx.shixiweiyuan.com/user/updateCompanyInfo', {
            			  method: 'POST',
                   headers: {
                   'Content-Type': 'application/x-www-form-urlencoded',
@@ -467,7 +504,7 @@ export default class Setting extends Component {
         that.setState({
           loaded:true,
         })
-        fetch('http://139.199.76.191:8889/user/updateCompanyInfo', {
+        fetch('https://yzx.shixiweiyuan.com/user/updateCompanyInfo', {
            method: 'POST',
            headers: {
            'Content-Type': 'application/x-www-form-urlencoded',
@@ -684,14 +721,14 @@ export default class Setting extends Component {
                       <Text allowFontScaling={false} adjustsFontSizeToFit={false} style={{color:'#4D4D4D',fontSize:WID==320 ? 14 : 16,}}>营业执照</Text>
                    </View>
                    <View style={{borderWidth:1,borderColor:'#eee',height:220,marginTop:15,justifyContent:'center',alignItems:'center',flexDirection:'row'}}>
-                     {!this.state.imagesshow ? <TouchableOpacity activeOpacity={1} onPress={this.selectPhotoTapped.bind(this)} style={{justifyContent:'center',alignItems:'center',flex:1,flexDirection:'column',borderRightWidth:1,borderColor:'#eee',height:220,}}>
-                      <View style={{justifyContent:'center',alignItems:'center',flex:1,flexDirection:'column',height:220,}}>
+                     {!this.state.imagesshow ? <TouchableOpacity activeOpacity={1} onPress={this.selectPhotoTapped.bind(this)} style={{justifyContent:'center',alignItems:'center',flex:1,flexDirection:'column',borderRightWidth:1,borderColor:'#eee',height:220,overflow:'hidden'}}>
+                      <View style={{justifyContent:'center',alignItems:'center',flex:1,flexDirection:'column',height:220,overflow:'hidden'}}>
                          <Image style={{ width: 40, height: 40,}} source={require('../img/updata.png')} />
                          <View>
                             <Text allowFontScaling={false} adjustsFontSizeToFit={false} style={{color:'#1579BC',fontSize:14,marginTop:15}}>点击上传</Text>
                          </View>
                       </View>
-                      </TouchableOpacity> : <TouchableOpacity activeOpacity={1} onPress={this.selectPhotoTapped.bind(this)} style={{justifyContent:'center',alignItems:'center',flex:1,flexDirection:'column',borderRightWidth:1,borderColor:'#eee',height:220,}}><View style={{justifyContent:'center',alignItems:'center',flex:1,flexDirection:'column'}}>
+                      </TouchableOpacity> : <TouchableOpacity activeOpacity={1} onPress={this.selectPhotoTapped.bind(this)} style={{justifyContent:'center',alignItems:'center',flex:1,flexDirection:'column',borderRightWidth:1,borderColor:'#eee',height:220,overflow:'hidden'}}><View style={{justifyContent:'center',alignItems:'center',flex:1,flexDirection:'column'}}>
                          <Image resizeMode={'contain'} style={{ width: 240, height: 180,}} source={this.state.avatarSource} />
                          <View style={{marginTop:5}}>
                             <Text allowFontScaling={false} adjustsFontSizeToFit={false} style={{color:'#B2B2B2',fontSize:14,}}>点击重新选择</Text>

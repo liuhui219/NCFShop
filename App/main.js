@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -15,6 +9,7 @@ import {
   TextInput,
   ListView,
   Animated,
+  KeyboardAvoidingView,
   AppState,
   ToastAndroid,
   TouchableHighlight,
@@ -74,23 +69,70 @@ export default class NCFShop extends Component {
   }
 
   componentWillMount(){
-    JPushModule.setBadge(0, success => {})
+    console.log(JMessage)
+    JMessage.addLoginStateChangedListener((event)=>{
+      console.log(event)
+      if(event.type == "user_kicked"){
+        storage.clearMap();
+        storage.remove({
+          key: 'loginState'
+        });
+        global.data='';
+        DeviceEventEmitter.emit('IsLoginout','true');
+      }
+    })
+    JPushModule.setBadge(0, success => {console.log(success)})
+    JMessage.setBadge(0, success => {console.log(success)})
+    JPushModule.getBadge(badge => {console.log(badge)})
     AppState.addEventListener('change', this._handleAppStateChange.bind(this));
     JMessage.init({
-      appkey: "fdbbb12e83955a2ae9a51dbb",
+      appkey: "0a86dd7a0756f0bafd2b7247",
       isOpenMessageRoaming: false,
       isProduction: true,
     })
+
+    var that = this;
+    fetch('https://yzx.shixiweiyuan.com/im/getImKey', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: this.toQueryString({
+         'token': data.result
+        })
+      })
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (result) {
+        if(result.code == 0){
+          console.log(result)
+          if(result.hasOwnProperty('result')){
+            JMessage.login({
+              username: result.result,
+              password: "123456789"
+            },(success) => {
+               DeviceEventEmitter.emit('IsChat','false');
+            }, (error) => {
+
+            })
+          }else{
+            that.setState({
+              IsShowLogin:true,
+            });
+          }
+        }else{
+          that.setState({
+            IsShowLogin:true,
+          });
+        }
+      })
+      .catch((error) => {
+         ToastAndroid.showWithGravity('您的系统繁忙', ToastAndroid.LONG,ToastAndroid.CENTER)
+      });
     if(data != ''){
       this.setState({
         IsShowLogin:false,
-      })
-      JMessage.login({
-        username: data.IM,
-        password: "123456789"
-      },(success) => {
-
-      }, (error) => {
       })
     }else{
       this.setState({
@@ -102,6 +144,8 @@ export default class NCFShop extends Component {
     }
 
     JMessage.addReceiveMessageListener((message) => {
+      JPushModule.setBadge(0, success => {console.log(success)})
+      JMessage.setBadge(0, success => {console.log(success)})
         DeviceEventEmitter.emit('IsChat','false');
       },(error) => {
         var code = error.code
@@ -143,7 +187,7 @@ export default class NCFShop extends Component {
 
   _handleAppStateChange(appState){
 	  	this.setState({appState});
-	  	if(this.state.appState == 'active'){ 
+	  	if(this.state.appState == 'active'){
         JPushModule.setBadge(0, success => {})
 	  	}else{
 
@@ -274,8 +318,9 @@ export default class NCFShop extends Component {
       this.setState({
         loadedk:true
       })
+      Keyboard.dismiss();
       var that = this;
-      fetch('http://139.199.76.191:8889/product/search', {
+      fetch('https://yzx.shixiweiyuan.com/product/search', {
           method: 'POST',
           headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -292,6 +337,7 @@ export default class NCFShop extends Component {
           console.log(result)
           if(result.code == 0){
             arrays = [];
+            Keyboard.dismiss();
             ImgArrays = [];
             if(result.result.list.length != 0){
               result.result.list.forEach((info,i)=>{
@@ -339,6 +385,7 @@ export default class NCFShop extends Component {
         })
         .catch((error) => {
           Toast.showShortCenter('您的系统繁忙')
+          Keyboard.dismiss();
           that.setState({
                sxs:true,
                isReachs:true,
@@ -357,7 +404,7 @@ export default class NCFShop extends Component {
   			  })
 
           var that=this
-          fetch('http://139.199.76.191:8889/product/search', {
+          fetch('https://yzx.shixiweiyuan.com/product/search', {
               method: 'POST',
               headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
@@ -530,6 +577,7 @@ export default class NCFShop extends Component {
             </View>
             <View style={{flex:1}}>
                 <ListView
+                  keyboardDismissMode={'on-drag'}
                   dataSource={this.state.dataSources}
                   renderRow={this.renderMovies.bind(this)}
                   onEndReached={this._onEndReachs.bind(this) }
@@ -636,7 +684,7 @@ export default class NCFShop extends Component {
   pushPro(info){
 
     var that = this;
-    fetch('http://139.199.76.191:8889/shoppingCart/add', {
+    fetch('https://yzx.shixiweiyuan.com/shoppingCart/add', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

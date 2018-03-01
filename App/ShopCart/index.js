@@ -114,7 +114,7 @@ export default class MyComponent extends Component {
 
   getData(){
     var that = this;
-    fetch('http://139.199.76.191:8889/shoppingCart/list', {
+    fetch('https://yzx.shixiweiyuan.com/shoppingCart/list', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -196,7 +196,7 @@ export default class MyComponent extends Component {
 
   getDatas(){
     var that = this;
-    fetch('http://139.199.76.191:8889/shoppingCart/list', {
+    fetch('https://yzx.shixiweiyuan.com/shoppingCart/list', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -309,7 +309,7 @@ export default class MyComponent extends Component {
     this.setState({
       loadedx:true,
     })
-    fetch('http://139.199.76.191:8889/shoppingCart/update', {
+    fetch('https://yzx.shixiweiyuan.com/shoppingCart/update', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -593,7 +593,7 @@ export default class MyComponent extends Component {
       this.setState({
         loadedx:true,
       })
-      fetch('http://139.199.76.191:8889/shoppingCart/del', {
+      fetch('https://yzx.shixiweiyuan.com/shoppingCart/del', {
           method: 'POST',
           headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

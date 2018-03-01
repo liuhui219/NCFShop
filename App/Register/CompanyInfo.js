@@ -334,7 +334,7 @@ export default class MyComponent extends Component {
          sumText:'提交中...',
          Islogins:true,
        })
-       fetch('http://139.199.76.191:8889/file/upLoadPrivateImg', {
+       fetch('https://yzx.shixiweiyuan.com/file/upLoadPrivateImg', {
            method: 'POST',
            headers: {
            'Content-Type':'multipart/form-data',
@@ -347,7 +347,7 @@ export default class MyComponent extends Component {
          .then(function (result) {
 
            if(result.code == 0){
-              fetch('http://139.199.76.191:8889/user/updateCompanyInfo', {
+              fetch('https://yzx.shixiweiyuan.com/user/updateCompanyInfo', {
                  method: 'POST',
                  headers: {
                  'Content-Type': 'application/x-www-form-urlencoded',
@@ -407,7 +407,7 @@ export default class MyComponent extends Component {
          sumText:'提交中...',
          Islogins:true,
        })
-       fetch('http://139.199.76.191:8889/user/updateCompanyInfo', {
+       fetch('https://yzx.shixiweiyuan.com/user/updateCompanyInfo', {
           method: 'POST',
           headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
